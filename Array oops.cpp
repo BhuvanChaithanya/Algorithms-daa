@@ -17,6 +17,8 @@ class Array {
         void insertAtPosition(int element, int position);
         void printArray();
         void selectionSort();
+        void mergeSort(int low, int high);
+        void merge(int low, int mid, int high);
 };
 
 void Array::addElement(int element) {
@@ -74,7 +76,56 @@ void Array::selectionSort() {
         swap(arr[minIndex], arr[i]);
     }
 }
-
+void Array::mergeSort(int low, int high) {
+    if (low < high) {
+        int mid = low + (high - low) / 2;
+        
+        mergeSort(low, mid);
+        mergeSort(mid + 1, high);
+        
+        merge(low, mid, high);
+    }
+}
+void Array::merge(int low, int mid, int high) {
+    int n1 = mid - low + 1;
+    int n2 = high - mid;
+    
+    int left[n1], right[n2];
+    
+    for (int i = 0; i < n1; i++) {
+        left[i] = arr[low + i];
+    }
+    
+    for (int j = 0; j < n2; j++) {
+        right[j] = arr[mid + 1 + j];
+    }
+    
+    int i = 0, j = 0, k = low;
+    
+    while (i < n1 && j < n2) {
+        if (left[i] <= right[j]) {
+            arr[k] = left[i];
+            i++;
+        } else {
+            arr[k] = right[j];
+            j++;
+        }
+        
+        k++;
+    }
+    
+    while (i < n1) {
+        arr[k] = left[i];
+        i++;
+        k++;
+    }
+    
+    while (j < n2) {
+        arr[k] = right[j];
+        j++;
+        k++;
+    }
+}
 int main() {
     Array myArray(100);
     myArray.addElement(1);
@@ -85,10 +136,9 @@ int main() {
     
     myArray.printArray();
     
-    myArray.selectionSort();
+    myArray.mergeSort(0,4);
     
     myArray.printArray();
     
     return 0;
 }
-
