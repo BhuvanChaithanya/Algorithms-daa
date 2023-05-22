@@ -14,6 +14,7 @@ class Array {
         }
         void addElement(int element);
         void insertAtBegin(int element);
+        void insertAtPosition(int element, int position);
         void printArray();
 };
 
@@ -44,6 +45,21 @@ void Array::insertAtBegin(int element) {
             arr[0] = element;
             size++;
         }
+void Array::insertAtPosition(int element, int position) {
+            if (size == capacity) {
+                cout << "Array is full" << endl;
+                return;
+            }
+            if (position < 0 || position > size) {
+                cout << "Invalid position" << endl;
+                return;
+            }
+            for (int i = size; i > position; i--) {
+                arr[i] = arr[i-1];
+            }
+            arr[position] = element;
+            size++;
+        }
 
 int main() {
     Array myArray(5);
@@ -51,6 +67,8 @@ int main() {
     myArray.addElement(2);
     myArray.addElement(3);
     myArray.insertAtBegin(5);
+    myArray.insertAtPosition(9,2);
     myArray.printArray();
     return 0;
 }
+
