@@ -16,7 +16,7 @@ class Array {
         void insertAtBegin(int element);
         void insertAtPosition(int element, int position);
         void printArray();
-        void bubbleSort();
+        void selectionSort();
 };
 
 void Array::addElement(int element) {
@@ -63,13 +63,15 @@ void Array::insertAtPosition(int element, int position) {
     size++;
 }
 
-void Array::bubbleSort() {
+void Array::selectionSort() {
     for (int i = 0; i < size - 1; i++) {
-        for (int j = 0; j < size - i - 1; j++) {
-            if (arr[j] > arr[j+1]) {
-                swap(arr[j], arr[j+1]);
+        int minIndex = i;
+        for (int j = i + 1; j < size; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
             }
         }
+        swap(arr[minIndex], arr[i]);
     }
 }
 
@@ -80,11 +82,13 @@ int main() {
     myArray.addElement(3);
     myArray.insertAtBegin(5);
     myArray.insertAtPosition(9,2);
+    
     myArray.printArray();
     
-    myArray.bubbleSort();
+    myArray.selectionSort();
     
     myArray.printArray();
     
     return 0;
 }
+
