@@ -17,8 +17,12 @@ class Array {
         void insertAtPosition(int element, int position);
         void printArray();
         void selectionSort();
+        void bubbleSort();
+        void insertionSort();
         void mergeSort(int low, int high);
         void merge(int low, int mid, int high);
+        int kadanesAlgorithm();
+        
 };
 
 void Array::addElement(int element) {
@@ -76,6 +80,28 @@ void Array::selectionSort() {
         swap(arr[minIndex], arr[i]);
     }
 }
+void Array::bubbleSort() {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+void Array::insertionSort() {
+    for (int i = 1; i < size; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        
+        arr[j + 1] = key;
+    }
+}
 void Array::mergeSort(int low, int high) {
     if (low < high) {
         int mid = low + (high - low) / 2;
@@ -126,6 +152,17 @@ void Array::merge(int low, int mid, int high) {
         k++;
     }
 }
+int Array::kadanesAlgorithm() {
+    int maxSum = arr[0];
+    int currentSum = arr[0];
+    
+    for (int i = 1; i < size; i++) {
+        currentSum = max(arr[i], currentSum + arr[i]);
+        maxSum = max(maxSum, currentSum);
+    }
+    
+    return maxSum;
+}
 int main() {
     Array myArray(100);
     myArray.addElement(1);
@@ -136,9 +173,11 @@ int main() {
     
     myArray.printArray();
     
-    myArray.mergeSort(0,4);
+    myArray.insertionSort();
     
     myArray.printArray();
+    int x = myArray.kadanesAlgorithm();
+    cout<<x;
     
     return 0;
 }
