@@ -22,6 +22,8 @@ class Array {
         void mergeSort(int low, int high);
         void merge(int low, int mid, int high);
         int kadanesAlgorithm();
+        int bruteForceAlgorithm();
+        
         
 };
 
@@ -163,6 +165,20 @@ int Array::kadanesAlgorithm() {
     
     return maxSum;
 }
+int Array::bruteForceAlgorithm() {
+    int maxSum = arr[0];
+
+    for (int i = 0; i < size; i++) {
+        int currentSum = 0;
+
+        for (int j = i; j < size; j++) {
+            currentSum += arr[j];
+            maxSum = max(maxSum, currentSum);
+        }
+    }
+
+    return maxSum;
+}
 int main() {
     Array myArray(100);
     myArray.addElement(1);
@@ -176,7 +192,7 @@ int main() {
     myArray.insertionSort();
     
     myArray.printArray();
-    int x = myArray.kadanesAlgorithm();
+    int x = myArray.bruteForceAlgorithm();
     cout<<x;
     
     return 0;
